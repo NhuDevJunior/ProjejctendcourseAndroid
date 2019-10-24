@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Nhu Video Player</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Categories</string>
+    <string name="title_notifications">Playlist</string>
+    <string name="title_app">Nhu Video Player</string>
+</resources>
