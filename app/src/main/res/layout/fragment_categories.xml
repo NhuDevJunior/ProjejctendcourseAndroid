@@ -9,10 +9,17 @@
             android:orientation="vertical"
             >
             <TextView
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="welcome to categories"
+                android:text="Categories"
                 android:id="@+id/textCategories"
+                />
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressbar1"
                 />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listcategories"

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#202124</color>
-    <color name="colorPrimaryDark">#FA202124</color>
+    <color name="colorPrimaryDark">#F2202124</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhile">#aaaaaa</color>
     <color name="colorwhile1">#ffff</color>

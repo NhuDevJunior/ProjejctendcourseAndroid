@@ -10,10 +10,10 @@
         >
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="190dp"
+            android:layout_height="180dp"
             android:src="@drawable/nhulogo"/>
         <TextView
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="17dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/videohot"
@@ -21,13 +21,32 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progressbar"
+            android:id="@+id/progressbar1"
             />
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/listhotvideo"
             />
+        <TextView
+            android:layout_marginLeft="17dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/videonew"
+            />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressbar2"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listnewvideo"
+            />
+
         </LinearLayout>
 </RelativeLayout>
 

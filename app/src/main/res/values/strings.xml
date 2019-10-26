@@ -4,4 +4,5 @@
     <string name="title_dashboard">Categories</string>
     <string name="title_notifications">Playlist</string>
     <string name="title_app">Nhu Video Player</string>
+    <string name="video_hot">video hot</string>
 </resources>
