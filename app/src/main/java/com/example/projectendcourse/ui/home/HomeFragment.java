@@ -25,6 +25,7 @@ import com.example.projectendcourse.AdapterContact;
 import com.example.projectendcourse.Contact;
 import com.example.projectendcourse.IonClickContact;
 import com.example.projectendcourse.R;
+import com.example.projectendcourse.SliderAdapterExample;
 import com.example.projectendcourse.databinding.FragmentHomeBinding;
 import com.example.projectendcourse.showvideo;
 
@@ -55,7 +56,19 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
+
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
+
+
+
+
+        SliderAdapterExample adapter = new SliderAdapterExample(getContext());
+
+        binding.imageSlider.setSliderAdapter(adapter);
+        binding.imageSlider.startAutoCycle();
         // set hot video
         binding.videohot.setText("hot video");
         binding.videohot.setTextSize(20);
