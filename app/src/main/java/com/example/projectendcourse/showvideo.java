@@ -11,7 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.github.rtoshiro.view.video.FullscreenVideoLayout;
@@ -19,6 +22,7 @@ import com.universalvideoview.UniversalMediaController;
 import com.universalvideoview.UniversalVideoView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class showvideo extends AppCompatActivity {
     View mBottomLayout;
@@ -26,17 +30,22 @@ public class showvideo extends AppCompatActivity {
     UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
     TextView namevideo;
-
+    ListView ivContact;
+    AdapterListView adapterListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showvideo);
+        ivContact=findViewById(R.id.listauto);
         namevideo = findViewById(R.id.namevideo);
         mVideoView = findViewById(R.id.videoView);
         mVideoLayout=findViewById(R.id.video_layout);
         Intent intent = getIntent();
+        ListOject list =(ListOject) intent.getSerializableExtra("video");
+        final ArrayList listvideo=list.arrayList;
+        //ArrayList<Contact> listvideo=list.arrayList;
         String name = intent.getStringExtra("name");
-        String link = intent.getStringExtra("link");
+        final String link = intent.getStringExtra("link");
         namevideo.setText(name);
         namevideo.setTextSize(20);
         namevideo.setTextColor(Color.WHITE);
@@ -44,8 +53,22 @@ public class showvideo extends AppCompatActivity {
         mVideoView.setVideoURI(uri);
         mMediaController = findViewById(R.id.media_controller);
         mVideoView.setMediaController(mMediaController);
-        
-        
+        mVideoView.start();
+        adapterListView=new AdapterListView(listvideo);
+        ivContact.setAdapter(adapterListView);
+        ivContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Contact contact= (Contact) listvideo.get(position);
+                namevideo.setText(contact.getName());
+                namevideo.setTextSize(20);
+                namevideo.setTextColor(Color.WHITE);
+                Uri uri = Uri.parse(contact.getLinkvideo());
+                mVideoView.setVideoURI(uri);
+                mVideoView.setMediaController(mMediaController);
+                mVideoView.start();
+            }
+        });
         // xu li su kien
 
 
@@ -63,7 +86,7 @@ public class showvideo extends AppCompatActivity {
                 } else {
                     ViewGroup.LayoutParams layoutParams = mVideoLayout.getLayoutParams();
                     layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    layoutParams.height = 400;
                     mVideoLayout.setLayoutParams(layoutParams);
                     //mBottomLayout.setVisibility(View.VISIBLE);
                 }
@@ -90,7 +113,6 @@ public class showvideo extends AppCompatActivity {
             }
 
         });
-
 
     }
 

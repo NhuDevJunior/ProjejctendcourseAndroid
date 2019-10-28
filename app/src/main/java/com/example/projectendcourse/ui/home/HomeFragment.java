@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.projectendcourse.AdapterContact;
 import com.example.projectendcourse.Contact;
 import com.example.projectendcourse.IonClickContact;
+import com.example.projectendcourse.ListOject;
 import com.example.projectendcourse.R;
 import com.example.projectendcourse.SliderAdapterExample;
 import com.example.projectendcourse.databinding.FragmentHomeBinding;
@@ -80,7 +81,6 @@ public class HomeFragment extends Fragment {
         adapterContact = new AdapterContact(contacthot);
         binding.listhotvideo.setLayoutManager(layoutManager);
         binding.listhotvideo.setAdapter(adapterContact);
-       contacthot.clear();
        // recyclerView.removeAllViews();
         //set new video
 
@@ -94,13 +94,15 @@ public class HomeFragment extends Fragment {
         binding.listnewvideo.setLayoutManager(layoutManager1);
         adapterContact1 = new AdapterContact(contactnew);
         binding.listnewvideo.setAdapter(adapterContact1);
-        contactnew.clear();
         //bat su kien hot video
         adapterContact.setIonClickContact(new IonClickContact() {
             @Override
             public void onclickName(Contact contact) {
                 Toast.makeText(getContext(), contact.getName(), Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getContext(), showvideo.class);
+                int size=contacthot.size();
+                ListOject listOject=new ListOject(contacthot);
+                intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
                 startActivity(intent);
@@ -110,6 +112,8 @@ public class HomeFragment extends Fragment {
             public void onclickAvatar(Contact contact) {
                 Toast.makeText(getContext(), contact.getName(), Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getContext(), showvideo.class);
+                ListOject listOject=new ListOject(contacthot);
+                intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
                 startActivity(intent);
@@ -121,6 +125,8 @@ public class HomeFragment extends Fragment {
             public void onclickName(Contact contact) {
                 Toast.makeText(getContext(), contact.getName(), Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getContext(), showvideo.class);
+                ListOject listOject=new ListOject(contactnew);
+                intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
                 startActivity(intent);
@@ -130,6 +136,8 @@ public class HomeFragment extends Fragment {
             public void onclickAvatar(Contact contact) {
                 Toast.makeText(getContext(), contact.getName(), Toast.LENGTH_LONG).show();
                 Intent intent=new Intent(getContext(), showvideo.class);
+                ListOject listOject=new ListOject(contactnew);
+                intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
                 startActivity(intent);
