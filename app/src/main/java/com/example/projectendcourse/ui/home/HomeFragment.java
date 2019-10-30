@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
 
 
 
-
+        // set slider image
         SliderAdapterExample adapter = new SliderAdapterExample(getContext());
 
         binding.imageSlider.setSliderAdapter(adapter);

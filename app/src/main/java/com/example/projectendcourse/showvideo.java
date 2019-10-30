@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -23,6 +24,7 @@ import com.universalvideoview.UniversalVideoView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class showvideo extends AppCompatActivity {
     View mBottomLayout;
@@ -31,7 +33,22 @@ public class showvideo extends AppCompatActivity {
     UniversalMediaController mMediaController;
     TextView namevideo;
     ListView ivContact;
+    Switch autovideo;
     AdapterListView adapterListView;
+    int vt=0;
+    private int checkname(String name, ArrayList<Contact> list)
+    {
+        for(int i=0;i<list.size();i++)
+        {
+            if(name.equals(list.get(i).getName()))
+            {
+                return i;
+
+            }
+
+        }
+        return -1;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +57,7 @@ public class showvideo extends AppCompatActivity {
         namevideo = findViewById(R.id.namevideo);
         mVideoView = findViewById(R.id.videoView);
         mVideoLayout=findViewById(R.id.video_layout);
+        autovideo=findViewById(R.id.autook);
         Intent intent = getIntent();
         ListOject list =(ListOject) intent.getSerializableExtra("video");
         final ArrayList listvideo=list.arrayList;
@@ -56,10 +74,12 @@ public class showvideo extends AppCompatActivity {
         mVideoView.start();
         adapterListView=new AdapterListView(listvideo);
         ivContact.setAdapter(adapterListView);
+        vt=checkname(name,listvideo);
         ivContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Contact contact= (Contact) listvideo.get(position);
+                vt=position;
                 namevideo.setText(contact.getName());
                 namevideo.setTextSize(20);
                 namevideo.setTextColor(Color.WHITE);
@@ -112,6 +132,25 @@ public class showvideo extends AppCompatActivity {
                 Log.d(TAG, "onBufferingEnd UniversalVideoView callback");
             }
 
+        });
+        mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if (autovideo.isChecked()) {
+                    vt = vt + 1;
+                    if (vt >= listvideo.size()) {
+                        vt = 0;
+                    }
+                    Contact contact = (Contact) listvideo.get(vt);
+                    namevideo.setText(contact.getName());
+                    namevideo.setTextSize(20);
+                    namevideo.setTextColor(Color.WHITE);
+                    Uri uri = Uri.parse(contact.getLinkvideo());
+                    mVideoView.setVideoURI(uri);
+                    mVideoView.setMediaController(mMediaController);
+                    mVideoView.start();
+                }
+            }
         });
 
     }
