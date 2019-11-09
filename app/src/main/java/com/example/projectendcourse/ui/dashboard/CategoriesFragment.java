@@ -52,9 +52,6 @@ public class CategoriesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false);
         //textView=view.findViewById(R.id.text_categories);
-        binding.textCategories.setText("Categories");
-        binding.textCategories.setTextSize(25);
-        binding.textCategories.setTextColor(Color.RED);
         DoGetData home=new DoGetData(url);
         home.execute();
         return binding.getRoot();

@@ -2,16 +2,21 @@ package com.example.projectendcourse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -24,18 +29,22 @@ import com.universalvideoview.UniversalVideoView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class showvideo extends AppCompatActivity {
+public class showvideo extends AppCompatActivity  {
     View mBottomLayout;
+    FrameLayout frameLayout;
     View mVideoLayout;
     UniversalVideoView mVideoView;
     UniversalMediaController mMediaController;
     TextView namevideo;
     ListView ivContact;
+    TextView textvisible;
     Switch autovideo;
     AdapterListView adapterListView;
     int vt=0;
+    private AudioManager audio;
     private int checkname(String name, ArrayList<Contact> list)
     {
         for(int i=0;i<list.size();i++)
@@ -53,10 +62,13 @@ public class showvideo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showvideo);
+        audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         ivContact=findViewById(R.id.listauto);
+        frameLayout=findViewById(R.id.video_layout);
         namevideo = findViewById(R.id.namevideo);
         mVideoView = findViewById(R.id.videoView);
         mVideoLayout=findViewById(R.id.video_layout);
+        //textvisible=findViewById(R.id.textdm);
         autovideo=findViewById(R.id.autook);
         Intent intent = getIntent();
         ListOject list =(ListOject) intent.getSerializableExtra("video");
@@ -131,7 +143,6 @@ public class showvideo extends AppCompatActivity {
             public void onBufferingEnd(MediaPlayer mediaPlayer) {// steam end loading
                 Log.d(TAG, "onBufferingEnd UniversalVideoView callback");
             }
-
         });
         mVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -152,7 +163,88 @@ public class showvideo extends AppCompatActivity {
                 }
             }
         });
+      mMediaController.setOnTouchListener(new View.OnTouchListener() {
+          int currentVolume;
+          int currentmedia;
+          private final int MAX_CLICK_DURATION = 400;
+          private final int MAX_CLICK_DISTANCE = 100;
+          private  final int MAX=100;
+          private long startClickTime;
+          private float x1;
+          private float y1;
+          private float x2;
+          private float y2;
+          private float dx;
+          private float dy;
+          private float wide;
+          private float high;
+          @Override
+          public boolean onTouch(View v, MotionEvent event) {
+                  AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                  currentVolume = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
+                  currentmedia=mVideoView.getCurrentPosition();
+                  int maxVolume = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                  int maxmedia=mVideoView.getDuration();
+                  int volumeok;
+                  int mediaok;
+                  wide = mMediaController.getWidth();
+                  high = mMediaController.getHeight();
 
+                  switch (event.getAction()) {
+                      case MotionEvent.ACTION_DOWN: {
+                          startClickTime = Calendar.getInstance().getTimeInMillis();
+                          x1 = event.getX();
+                          y1 = event.getY();
+                          mMediaController.invalidate();
+                          return true;
+                      }
+                      case MotionEvent.ACTION_MOVE: {
+                          long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                          x2 = event.getX();
+                          y2 = event.getY();
+                          dx = x2 - x1;
+                          dy = y2 - y1;
+                          float percenty = dy / high;
+                          float percentx=dx/wide;
+                          if (clickDuration < MAX_CLICK_DURATION && dx < MAX_CLICK_DISTANCE && dy < MAX_CLICK_DISTANCE) {
+                              //Log.v("", "On Item Clicked:: ");
+                              if (dy < 0) {
+                                  float addvolume0 = percenty * maxVolume / 2;
+                                  volumeok = (int) (currentVolume - addvolume0);
+                                  if (volumeok > 15) {
+                                      volumeok = 15;
+                                  }
+                                  audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeok, AudioManager.FLAG_SHOW_UI);
+
+                              } else if(dy>0){
+                                  int addvolume1 = (int)(percenty * maxVolume);
+                                  volumeok = (int) (currentVolume - addvolume1 );
+                                  if (volumeok < 0) {
+                                      volumeok = 0;
+                                  }
+                                  audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeok, AudioManager.FLAG_SHOW_UI);
+                              }
+                          }
+                          if(dx<0)
+                          {
+                              float addmedia0=percentx*maxmedia*100;
+                              mediaok=(int)(currentmedia-addmedia0);
+                              mVideoView.seekTo(mediaok);
+                          }
+                          else {
+                              float addmedia=percentx*maxmedia*100;
+                              mediaok=(int)(currentmedia-addmedia);
+                              mVideoView.seekTo(mediaok);
+                          }
+                          mMediaController.invalidate();
+                          return true;
+                      }
+                  }
+
+                  return false;
+              }
+
+      });
     }
 
 }
