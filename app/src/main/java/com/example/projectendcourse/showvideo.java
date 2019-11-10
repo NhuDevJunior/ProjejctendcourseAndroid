@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class showvideo extends AppCompatActivity  {
     ListView ivContact;
     TextView textvisible;
     Switch autovideo;
+    LinearLayout linearLayout;
     AdapterListView adapterListView;
     int vt=0;
     private AudioManager audio;
@@ -74,8 +76,10 @@ public class showvideo extends AppCompatActivity  {
         ListOject list =(ListOject) intent.getSerializableExtra("video");
         final ArrayList listvideo=list.arrayList;
         //ArrayList<Contact> listvideo=list.arrayList;
-        String name = intent.getStringExtra("name");
+        final String name = intent.getStringExtra("name");
         final String link = intent.getStringExtra("link");
+        String date=intent.getStringExtra("date");
+        final String avatar=intent.getStringExtra("avatar");
         namevideo.setText(name);
         namevideo.setTextSize(20);
         namevideo.setTextColor(Color.WHITE);
@@ -84,13 +88,18 @@ public class showvideo extends AppCompatActivity  {
         mMediaController = findViewById(R.id.media_controller);
         mVideoView.setMediaController(mMediaController);
         mVideoView.start();
+        vt=checkname(name,listvideo);
+        Contact update=new Contact(name,"yes",avatar,link);
+        listvideo.set(vt,update);
         adapterListView=new AdapterListView(listvideo);
         ivContact.setAdapter(adapterListView);
-        vt=checkname(name,listvideo);
         ivContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Contact contact= (Contact) listvideo.get(position);
+                Contact contact1= (Contact) listvideo.get(vt);
+                Contact update1=new Contact(contact1.getName(),"no",contact1.getAvatar(),contact1.getLinkvideo());
+                listvideo.set(vt,update1);
                 vt=position;
                 namevideo.setText(contact.getName());
                 namevideo.setTextSize(20);
@@ -99,6 +108,10 @@ public class showvideo extends AppCompatActivity  {
                 mVideoView.setVideoURI(uri);
                 mVideoView.setMediaController(mMediaController);
                 mVideoView.start();
+                Contact update2=new Contact(contact.getName(),"yes",contact.getAvatar(),contact.getLinkvideo());
+                listvideo.set(vt,update2);
+                adapterListView=new AdapterListView(listvideo);
+                ivContact.setAdapter(adapterListView);
             }
         });
         // xu li su kien
@@ -148,11 +161,16 @@ public class showvideo extends AppCompatActivity  {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 if (autovideo.isChecked()) {
+                    Contact contact1= (Contact) listvideo.get(vt);
+                    Contact update1=new Contact(contact1.getName(),"no",contact1.getAvatar(),contact1.getLinkvideo());
+                    listvideo.set(vt,update1);
                     vt = vt + 1;
                     if (vt >= listvideo.size()) {
                         vt = 0;
                     }
                     Contact contact = (Contact) listvideo.get(vt);
+                    Contact update=new Contact(contact.getName(),"yes",contact.getAvatar(),contact.getLinkvideo());
+                    listvideo.set(vt,update);
                     namevideo.setText(contact.getName());
                     namevideo.setTextSize(20);
                     namevideo.setTextColor(Color.WHITE);
@@ -160,6 +178,8 @@ public class showvideo extends AppCompatActivity  {
                     mVideoView.setVideoURI(uri);
                     mVideoView.setMediaController(mMediaController);
                     mVideoView.start();
+                    adapterListView=new AdapterListView(listvideo);
+                    ivContact.setAdapter(adapterListView);
                 }
             }
         });

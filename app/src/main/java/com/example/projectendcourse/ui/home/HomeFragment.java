@@ -105,6 +105,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
+                intent.putExtra("avatar",contact.getAvatar());
                 startActivity(intent);
             }
 
@@ -116,6 +117,7 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
+                intent.putExtra("avatar",contact.getAvatar());
                 startActivity(intent);
             }
         });
@@ -129,6 +131,8 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
+                intent.putExtra("date","no");
+                intent.putExtra("avatar",contact.getAvatar());
                 startActivity(intent);
             }
 
@@ -140,6 +144,8 @@ public class HomeFragment extends Fragment {
                 intent.putExtra("video",listOject);
                 intent.putExtra("name",contact.getName());
                 intent.putExtra("link",contact.getLinkvideo());
+                intent.putExtra("date","no");
+                intent.putExtra("avatar",contact.getAvatar());
                 startActivity(intent);
 
             }
@@ -169,7 +175,7 @@ public class HomeFragment extends Fragment {
 
                     JSONObject ob = jsonArray.getJSONObject(i);
                     String name = ob.getString("title");
-                    String date = ob.getString("date_created");
+                    String date = "no";
                     String avatar =ob.getString("avatar");
                     String linkvideo=ob.getString("file_mp4");
                     Contact contact=new Contact(name,date,avatar,linkvideo);
@@ -237,7 +243,7 @@ public class HomeFragment extends Fragment {
 
                     JSONObject ob = jsonArray.getJSONObject(i);
                     String name = ob.getString("title");
-                    String date = ob.getString("date_created");
+                    String date = "no";
                     String avatar =ob.getString("avatar");
                     String linkvideo=ob.getString("file_mp4");
                     Contact contact=new Contact(name,date,avatar,linkvideo);

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -18,6 +19,8 @@ public class AdapterListView extends BaseAdapter {
     }
 
     List<Contact> contactList;
+    LinearLayout linearLayout;
+
 
     @Override
     public int getCount() {
@@ -40,10 +43,15 @@ public class AdapterListView extends BaseAdapter {
         convertView=inflater.inflate(R.layout.itemautolist,parent,false);
         TextView nameauto=convertView.findViewById(R.id.autoname);
         ImageView imgauto=convertView.findViewById(R.id.autoimage);
+        linearLayout=convertView.findViewById(R.id.autogroup);
         Contact contact=contactList.get(position);
         Picasso.get().load(contact.getAvatar()).into(imgauto);
         nameauto.setText(contact.getName());
         nameauto.setTextColor(Color.WHITE);
+        if(contact.date.equals("yes"))
+        {
+         nameauto.setTextColor(Color.RED);
+        }
         return convertView;
     }
 }
