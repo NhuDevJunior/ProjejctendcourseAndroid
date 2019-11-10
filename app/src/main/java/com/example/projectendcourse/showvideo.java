@@ -206,35 +206,41 @@ public class showvideo extends AppCompatActivity  {
                           dy = y2 - y1;
                           float percenty = dy / high;
                           float percentx=dx/wide;
-                          if (clickDuration < MAX_CLICK_DURATION && dx < MAX_CLICK_DISTANCE && dy < MAX_CLICK_DISTANCE) {
-                              //Log.v("", "On Item Clicked:: ");
-                              if (dy < 0) {
-                                  float addvolume0 = percenty * maxVolume / 2;
-                                  volumeok = (int) (currentVolume - addvolume0);
-                                  if (volumeok > 15) {
-                                      volumeok = 15;
-                                  }
-                                  audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeok, AudioManager.FLAG_SHOW_UI);
+                          if(Math.abs(dx)<Math.abs(dy)+6) {
+                              if (clickDuration < MAX_CLICK_DURATION && dx < MAX_CLICK_DISTANCE && dy < MAX_CLICK_DISTANCE) {
+                                  //Log.v("", "On Item Clicked:: ");
+                                  if (dy <= -1) {
+                                      float addvolume0 = percenty * maxVolume / 3;
+                                      volumeok = (int) (currentVolume - addvolume0);
+                                      if (volumeok > 15) {
+                                          volumeok = 15;
+                                      }
+                                      audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeok, AudioManager.FLAG_SHOW_UI);
 
-                              } else if(dy>0){
-                                  int addvolume1 = (int)(percenty * maxVolume);
-                                  volumeok = (int) (currentVolume - addvolume1 );
-                                  if (volumeok < 0) {
-                                      volumeok = 0;
+                                  } else if (dy >= 1) {
+                                      int addvolume1 =(int) (percenty * maxVolume);
+                                      volumeok = (int) (currentVolume - addvolume1);
+                                      if (volumeok < 0) {
+                                          volumeok = 0;
+                                      }
+                                      audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeok, AudioManager.FLAG_SHOW_UI);
                                   }
-                                  audio.setStreamVolume(AudioManager.STREAM_MUSIC, volumeok, AudioManager.FLAG_SHOW_UI);
                               }
                           }
-                          if(dx<0)
-                          {
-                              float addmedia0=percentx*maxmedia*100;
-                              mediaok=(int)(currentmedia-addmedia0);
-                              mVideoView.seekTo(mediaok);
-                          }
-                          else {
-                              float addmedia=percentx*maxmedia*100;
-                              mediaok=(int)(currentmedia-addmedia);
-                              mVideoView.seekTo(mediaok);
+                          else if(Math.abs(dx)>Math.abs(dy)+6){
+                              if (dx >3) {
+                                  float addmedia0 = percentx * maxmedia/3;
+                                  mediaok = (int) (currentmedia + addmedia0);
+                                  if (mediaok > maxmedia)
+                                      mediaok = maxmedia;
+                                  mVideoView.seekTo(mediaok);
+                              } else if (dx <-3) {
+                                  float addmedia = percentx * maxmedia/3;
+                                  mediaok = (int) (currentmedia + addmedia);
+                                  if (mediaok < 0)
+                                      mediaok = 0;
+                                  mVideoView.seekTo(mediaok);
+                              }
                           }
                           mMediaController.invalidate();
                           return true;
