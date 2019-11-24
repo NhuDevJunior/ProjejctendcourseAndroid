@@ -1,19 +1,19 @@
-package com.example.projectendcourse;
+package com.example.projectendcourse.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.projectendcourse.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
-public class SliderAdapterExample extends SliderViewAdapter<SliderAdapterExample.SliderAdapterVH> {
+public class SliderAdapter extends SliderViewAdapter<SliderAdapter.SliderAdapterVH> {
     private Context context;
 
-    public SliderAdapterExample(Context context) {
+    public SliderAdapter(Context context) {
         this.context = context;
     }
 

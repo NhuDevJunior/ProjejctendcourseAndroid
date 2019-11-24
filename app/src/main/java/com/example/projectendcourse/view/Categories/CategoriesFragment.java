@@ -1,31 +1,22 @@
-package com.example.projectendcourse.ui.dashboard;
+package com.example.projectendcourse.view.Categories;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.projectendcourse.AdapterContact;
-import com.example.projectendcourse.Contact;
+import com.example.projectendcourse.Adapter.AdapterContactCate;
+import com.example.projectendcourse.contact.Contact;
 import com.example.projectendcourse.R;
 import com.example.projectendcourse.databinding.FragmentCategoriesBinding;
-import com.example.projectendcourse.databinding.FragmentHomeBinding;
-import com.example.projectendcourse.ui.home.HomeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,12 +28,10 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class CategoriesFragment extends Fragment {
-    TextView textView;
     FragmentCategoriesBinding binding;
     private static final String TAG = "CategoriesFragment";
     ArrayList<Contact> contacts=new ArrayList<>();
     String result="";
-    RecyclerView recyclerView;
     AdapterContactCate adapterContactCate;
 
     String url="http://demo6416315.mockable.io/getProduct";
@@ -51,7 +40,6 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_categories, container, false);
-        //textView=view.findViewById(R.id.text_categories);
         DoGetData home=new DoGetData(url);
         home.execute();
         return binding.getRoot();
@@ -82,9 +70,7 @@ public class CategoriesFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -116,8 +102,6 @@ public class CategoriesFragment extends Fragment {
             super.onPostExecute(aVoid);
             getArrayJson();
 
-            //RecyclerView.LayoutManager layoutManager  = new LinearLayoutManager(getContext(),
-                   // LinearLayoutManager.VERTICAL, false);
             RecyclerView.LayoutManager layoutManager=new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
             adapterContactCate = new AdapterContactCate(contacts);
             binding.listcategories.setLayoutManager(layoutManager);

@@ -1,4 +1,4 @@
-package com.example.projectendcourse;
+package com.example.projectendcourse.contact;
 
 import java.io.Serializable;
 

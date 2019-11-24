@@ -1,4 +1,4 @@
-package com.example.projectendcourse;
+package com.example.projectendcourse.Adapter;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.projectendcourse.contact.Contact;
+import com.example.projectendcourse.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class AdapterListView extends BaseAdapter {
 
     List<Contact> contactList;
     LinearLayout linearLayout;
+    public Contact contact;
 
 
     @Override
@@ -44,11 +47,11 @@ public class AdapterListView extends BaseAdapter {
         TextView nameauto=convertView.findViewById(R.id.autoname);
         ImageView imgauto=convertView.findViewById(R.id.autoimage);
         linearLayout=convertView.findViewById(R.id.autogroup);
-        Contact contact=contactList.get(position);
+        contact=contactList.get(position);
         Picasso.get().load(contact.getAvatar()).into(imgauto);
         nameauto.setText(contact.getName());
         nameauto.setTextColor(Color.WHITE);
-        if(contact.date.equals("yes"))
+        if(contact.getDate().equals("yes"))
         {
          nameauto.setTextColor(Color.RED);
         }

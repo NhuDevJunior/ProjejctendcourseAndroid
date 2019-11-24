@@ -1,9 +1,6 @@
-package com.example.projectendcourse;
+package com.example.projectendcourse.Adapter;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectendcourse.contact.Contact;
+import com.example.projectendcourse.interfaces.IonClickContact;
+import com.example.projectendcourse.R;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 public class AdapterContact extends RecyclerView.Adapter<AdapterContact.Viewholder> {
@@ -73,7 +67,7 @@ public class AdapterContact extends RecyclerView.Adapter<AdapterContact.Viewhold
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        TextView name, date;
+        TextView name;
         ImageView imghinh;
 
         public Viewholder(@NonNull View itemView) {

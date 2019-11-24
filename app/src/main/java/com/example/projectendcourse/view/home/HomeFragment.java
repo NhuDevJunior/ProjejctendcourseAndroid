@@ -1,4 +1,4 @@
-package com.example.projectendcourse.ui.home;
+package com.example.projectendcourse.view.home;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,27 +8,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.projectendcourse.AdapterContact;
-import com.example.projectendcourse.Contact;
-import com.example.projectendcourse.IonClickContact;
-import com.example.projectendcourse.ListOject;
+import com.example.projectendcourse.Adapter.AdapterContact;
+import com.example.projectendcourse.contact.Contact;
+import com.example.projectendcourse.interfaces.IonClickContact;
+import com.example.projectendcourse.view.displayvideo.ListOject;
 import com.example.projectendcourse.R;
-import com.example.projectendcourse.SliderAdapterExample;
+import com.example.projectendcourse.Adapter.SliderAdapter;
 import com.example.projectendcourse.databinding.FragmentHomeBinding;
-import com.example.projectendcourse.showvideo;
+import com.example.projectendcourse.view.displayvideo.showvideo;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +33,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
@@ -51,22 +45,15 @@ public class HomeFragment extends Fragment {
     String url1="https://demo5639557.mockable.io/getVideoHot";
     String url2="http://demo6416315.mockable.io/getnew";
 
-
-
     // main chinh cua fragment
 
     public View onCreateView(@NonNull final LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
-
-
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 
-
-
         // set slider image
-        SliderAdapterExample adapter = new SliderAdapterExample(getContext());
+        SliderAdapter adapter = new SliderAdapter(getContext());
 
         binding.imageSlider.setSliderAdapter(adapter);
         binding.imageSlider.startAutoCycle();
@@ -81,7 +68,6 @@ public class HomeFragment extends Fragment {
         adapterContact = new AdapterContact(contacthot);
         binding.listhotvideo.setLayoutManager(layoutManager);
         binding.listhotvideo.setAdapter(adapterContact);
-       // recyclerView.removeAllViews();
         //set new video
 
         binding.videonew.setText("recent video");
@@ -154,9 +140,7 @@ public class HomeFragment extends Fragment {
         return binding.getRoot();
     }
 
-
     //class boc tach json
-
 
     public class DoGetData1 extends AsyncTask<Void,Void,Void> {
         String url;
@@ -180,20 +164,15 @@ public class HomeFragment extends Fragment {
                     String linkvideo=ob.getString("file_mp4");
                     Contact contact=new Contact(name,date,avatar,linkvideo);
                     contacthot.add(contact);
-
                 }
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             binding.progressbar1.setVisibility(View.VISIBLE);
-
         }
         @Override
         protected Void doInBackground(Void... voids) {
@@ -221,7 +200,6 @@ public class HomeFragment extends Fragment {
             super.onPostExecute(aVoid);
             getArrayJson();
             binding.progressbar1.setVisibility(View.GONE);
-
         }
     }
     // load anh tu internet
@@ -254,14 +232,11 @@ public class HomeFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             binding.progressbar2.setVisibility(View.VISIBLE);
-
         }
         @Override
         protected Void doInBackground(Void... voids) {

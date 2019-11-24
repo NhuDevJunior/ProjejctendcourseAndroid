@@ -1,4 +1,4 @@
-package com.example.projectendcourse.ui.dashboard;
+package com.example.projectendcourse.Adapter;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.projectendcourse.Contact;
-import com.example.projectendcourse.IonClickContact;
+import com.example.projectendcourse.contact.Contact;
+import com.example.projectendcourse.interfaces.IonClickContact;
 import com.example.projectendcourse.R;
 import com.squareup.picasso.Picasso;
 
