@@ -18,6 +18,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/videohot"
+                android:text="@string/hot_video"
+                android:textSize="20dp"
+                android:textColor="@color/colorphephim"
                 />
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -35,6 +38,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/videonew"
+                android:text="@string/recent_video"
+                android:textSize="20dp"
+                android:textColor="@color/colorphephim"
                 />
             <ProgressBar
                 android:layout_width="wrap_content"

@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.projectendcourse.view.Playlist.PlayListFragment"
+        android:name="com.example.projectendcourse.view.Newsfilm.NewsListFragment"
         android:label="@string/title_app"
         tools:layout="@layout/fragment_playlist" />
 </navigation>

@@ -11,10 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.displayvideo.showvideo"
+        <activity android:name=".view.Newsfilm.Detailnews"
             android:theme="@style/displayvideo"
-            android:configChanges="orientation|screenSize"
             ></activity>
+        <activity
+            android:name=".view.displayvideo.showvideo"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/displayvideo" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">

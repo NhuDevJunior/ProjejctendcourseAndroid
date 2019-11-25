@@ -53,7 +53,7 @@ public class AdapterListView extends BaseAdapter {
         nameauto.setTextColor(Color.WHITE);
         if(contact.getDate().equals("yes"))
         {
-         nameauto.setTextColor(Color.RED);
+         nameauto.setTextColor(Color.parseColor("#63bee3"));
         }
         return convertView;
     }

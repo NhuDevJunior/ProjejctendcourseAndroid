@@ -2,8 +2,11 @@
     <string name="app_name">Nhu Video Player</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Categories</string>
-    <string name="title_notifications">Playlist</string>
+    <string name="title_notifications">film critic</string>
     <string name="title_app">Nhu Video Player</string>
     <string name="video_hot">video hot</string>
     <string name="autovideo">Tự Động Phát</string>
+    <string name="filmcritic">Film Critic</string>
+    <string name="hot_video">hot video</string>
+    <string name="recent_video">recent video</string>
 </resources>

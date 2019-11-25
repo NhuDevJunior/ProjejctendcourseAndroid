@@ -58,9 +58,6 @@ public class HomeFragment extends Fragment {
         binding.imageSlider.setSliderAdapter(adapter);
         binding.imageSlider.startAutoCycle();
         // set hot video
-        binding.videohot.setText("hot video");
-        binding.videohot.setTextSize(20);
-        binding.videohot.setTextColor(Color.RED);
         DoGetData1 home1=new DoGetData1(url1);
         home1.execute();
         RecyclerView.LayoutManager layoutManager  = new LinearLayoutManager(getContext(),
@@ -70,9 +67,6 @@ public class HomeFragment extends Fragment {
         binding.listhotvideo.setAdapter(adapterContact);
         //set new video
 
-        binding.videonew.setText("recent video");
-        binding.videonew.setTextSize(20);
-        binding.videonew.setTextColor(Color.RED);
         DoGetData2 home2=new DoGetData2(url2);
         home2.execute();
         RecyclerView.LayoutManager layoutManager1  = new LinearLayoutManager(getContext(),
